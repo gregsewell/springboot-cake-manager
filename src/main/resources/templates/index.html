@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cake Manager</title>
+</head>
+<body>
+    <h1>Cake Manager!</h1>
+    <p>The number one place on the web to manage all your cakes!</p>
+    <h2>List of Cakes</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Image</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:if="${cakes.empty}">
+                <td colspan="3"> No Cake For You!</td>
+            </tr>
+            <tr th:each="cake : ${cakes}">
+                <td><span th:text="${cake.title}"></span></td>
+                <td><span th:text="${cake.desc}"></span></td>
+                <td><img th:src="${cake.image}"/></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

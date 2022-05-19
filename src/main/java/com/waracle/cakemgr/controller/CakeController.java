@@ -29,12 +29,12 @@ public class CakeController {
     }
 
     /**
-     * Return the list of all cakes stored in the database.
+     * Return the list of all cakes stored in the database as JSON.
      * @return list of cakes
      */
     @GetMapping(path="/cakes", produces="application/json")
     public List<Cake> getCakes() {
-        LOGGER.debug("Received GET request for cakes");
+        LOGGER.debug("Received GET request for cakes as JSON");
         Iterable<CakeEntity> cakeEntities = repository.findAll();
 
         // Convert the entities to POJOs for presentation
