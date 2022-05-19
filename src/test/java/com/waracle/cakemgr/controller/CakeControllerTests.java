@@ -17,8 +17,6 @@ import static org.hamcrest.Matchers.*;
 
 import java.util.Arrays;
 
-import static org.mockito.ArgumentMatchers.any;
-
 @WebMvcTest(controllers=CakeController.class, excludeAutoConfiguration = SecurityAutoConfiguration.class)
 public class CakeControllerTests {
 
@@ -35,7 +33,7 @@ public class CakeControllerTests {
         CakeEntity cake2 = new CakeEntity(2L, "Lemon", "Lemon", "lemon.jpg");
         CakeEntity cake3 = new CakeEntity(3L, "Coffee", "Coffee", "coffee.jpg");
 
-        Mockito.when(repository.listCakes(any())).thenReturn(Arrays.asList(cake1, cake2, cake3));
+        Mockito.when(repository.findAll()).thenReturn(Arrays.asList(cake1, cake2, cake3));
 
         mockMvc.perform(MockMvcRequestBuilders
                 .get("/cakes")
