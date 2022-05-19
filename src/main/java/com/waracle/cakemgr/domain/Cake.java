@@ -13,6 +13,6 @@ import lombok.*;
 public class Cake {
     private Long id;
     private String title;
-    private String description;
+    private String desc;
     private String image;
 }

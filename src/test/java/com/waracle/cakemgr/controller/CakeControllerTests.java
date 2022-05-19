@@ -1,7 +1,9 @@
 package com.waracle.cakemgr.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.waracle.cakemgr.data.CakeEntity;
 import com.waracle.cakemgr.data.CakeRepository;
+import com.waracle.cakemgr.domain.Cake;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,4 +46,23 @@ public class CakeControllerTests {
                 .andExpect(jsonPath("$[1].id", is(2)))
                 .andExpect(jsonPath("$[2].id", is(3)));
     }
+
+    @Test
+    public void testCreateNewCake_shouldSucceed() throws Exception {
+
+        Cake cake = new Cake(null, "Chocolate", "Chocolate", "chocolate.jpg");
+        ObjectMapper mapper = new ObjectMapper();
+        String requestJson = mapper.writer().writeValueAsString(cake);
+
+        // The repository is mocked, so no easy way to check that an id would be assigned
+        mockMvc.perform(MockMvcRequestBuilders
+                .post("/cakes")
+                .content(requestJson)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.title", is("Chocolate")))
+                .andExpect(jsonPath("$.desc", is("Chocolate")))
+                .andExpect(jsonPath("$.image", is("chocolate.jpg")));
+    }
+
 }
