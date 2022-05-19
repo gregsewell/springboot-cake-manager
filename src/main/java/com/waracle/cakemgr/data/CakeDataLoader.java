@@ -33,6 +33,9 @@ public class CakeDataLoader {
     @Value("${cake.data.url}")
     private String cakeDataURL;
 
+    @Value("${download.cake.data:false}")
+    private boolean downloadCakeData;
+
     private CakeRepository repository;
 
     public CakeDataLoader(CakeRepository repository) {
@@ -49,20 +52,25 @@ public class CakeDataLoader {
         String cakeStr;
         RestTemplate restTemplate = new RestTemplate();
 
-        try {
-            ResponseEntity<String> response = restTemplate.getForEntity(cakeDataURL, String.class);
-            if (response.getStatusCode() == HttpStatus.OK && response.hasBody()) {
-                cakeStr = response.getBody();
-                LOGGER.info("Loaded cake data from URL {} ", cakeDataURL);
+        if (downloadCakeData) {
+            try {
+                ResponseEntity<String> response = restTemplate.getForEntity(cakeDataURL, String.class);
+                if (response.getStatusCode() == HttpStatus.OK && response.hasBody()) {
+                    cakeStr = response.getBody();
+                    LOGGER.info("Loaded cake data from URL {} ", cakeDataURL);
+                }
+                else {
+                    cakeStr = loadCakeDataFromResourceFile();
+                }
             }
-            else {
+            catch (Exception ex) {
                 cakeStr = loadCakeDataFromResourceFile();
             }
         }
-        catch (Exception ex) {
+        else {
             cakeStr = loadCakeDataFromResourceFile();
         }
-        LOGGER.info("cake = " + cakeStr);
+        LOGGER.info("cake data = " + cakeStr);
         ObjectMapper jsonMapper = new ObjectMapper();
         List<CakeEntity> cakes = Arrays.asList(jsonMapper.readValue(cakeStr, CakeEntity[].class));
         repository.saveAll(cakes);

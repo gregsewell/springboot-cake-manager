@@ -8,7 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 
 /**
- * JPA Entity fpr Cake
+ * JPA Entity for Cake
  */
 @NoArgsConstructor
 @AllArgsConstructor
@@ -26,7 +26,7 @@ public class CakeEntity {
     @Column(nullable = false, length = 100)
     private String title;
 
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false, length = 500)
     private String desc;
 
     @Column(nullable = false, length = 300)
