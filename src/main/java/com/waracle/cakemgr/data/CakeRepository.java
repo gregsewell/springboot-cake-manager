@@ -22,7 +22,6 @@ public class CakeRepository {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CakeRepository.class);
 
-
     /**
      * List all cakes
      * @return the list of cakes
