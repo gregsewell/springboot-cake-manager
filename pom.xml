@@ -17,6 +17,7 @@
 		<java.version>11</java.version>
 		<lombok.version>1.18.24</lombok.version>
 		<commons.version>2.11.0</commons.version>
+		<modelmapper.version>3.1.0</modelmapper.version>
 	</properties>
 	<dependencies>
 		<!-- Dependencides added by Spring Initializr -->
@@ -69,6 +70,12 @@
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
 			<version>${commons.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.modelmapper</groupId>
+			<artifactId>modelmapper</artifactId>
+			<version>${modelmapper.version}</version>
 		</dependency>
 
 	</dependencies>

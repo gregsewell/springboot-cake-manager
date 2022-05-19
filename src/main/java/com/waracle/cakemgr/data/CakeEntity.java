@@ -1,16 +1,16 @@
-package com.waracle.cakemgr.domain;
+package com.waracle.cakemgr.data;
 
 import lombok.*;
 
 /**
- * Domain object for cake!
+ * JPA Entity fpr Cake
  */
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 @ToString
-public class Cake {
+public class CakeEntity {
     private Long id;
     private String title;
     private String desc;
