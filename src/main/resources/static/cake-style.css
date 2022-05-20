@@ -1,0 +1,77 @@
+body {
+  font-family: sans-serif;
+  background-color: #99ccff;
+  color: #333;
+  padding: 20px 0 28px 0;
+  margin: 0;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.app-title {
+  text-align: center;
+  font-weight: bold;
+  font-size: 2.6rem;
+  color: #fff;
+}
+
+.app-desc {
+  text-align: center;
+  font-weight: normal;
+  font-size: 1.5rem;
+  color: #fff;
+}
+
+.app-results {
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.0rem;
+  color: #fff;
+}
+
+.cake {
+  text-align: left;
+  color: #000;
+  max-width: 800px;
+  padding: 20px;
+  margin: 30px auto;
+  background-color: #fff;
+  box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  border-radius: 15px;
+}
+
+.cake h4 {
+  margin: 0 0 6px 0;
+}
+
+.cake-photo {
+  float: left;
+  width: 200px;
+  margin-right: 15px;
+}
+
+.cake-name {
+  font-size: 1.5rem;
+  font-weight: normal;
+  margin: 0 0 1rem 0;
+}
+
+.cake-desc {
+  margin: 0;
+  padding: 0;
+  position: relative;
+  left: 5px;
+  font-size: 1.0rem;
+  line-height: 1.5;
+}
+
+.footer {
+  font-size: 0.7rem;
+  color: #888;
+  text-align: center;
+  margin: 0;
+}

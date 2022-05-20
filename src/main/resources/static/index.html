@@ -1,65 +1,41 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Cake Manager</title>
+    <link rel="stylesheet" href="cake-style.css"/>
 </head>
 <body>
+    <h1 class="app-title">Cake Manager</h1>
+    <p class="app-desc">The number one place on the web for cake!</p>
 
-    <h1>Cake Manager</h1>
-    <p>The number one place on the web to manage all your cakes!!!!</p>
-    <h2>The Cake List</h2>
+    <div class="app-results" id="cakes-list">
+    </div>
 
-    <style>
-        img.cakes {width:200; height:200;}
-    </style>
+    <script>
+        // Template literal for a cake
+        function cakeTemplate(cake) {
+          return `
+            <div class="cake">
+                <img class="cake-photo" src="${cake.image}">
+                <h2 class="cake-name">${cake.title}</h2>
+                <p class="cake-desc">${cake.desc}</p>
+            </div>
+          `;
+        }
 
-    <body>
-        <table>
-            <thead>
-            <tr>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Image</th>
-            </tr>
-            </thead>
-            <tbody id="cakes">
-            </tbody>
-        </table>
+        // Download the list of cakes data and then call the cakeTemplate to render each cake
+        async function getCakeData() {
+            const response = await fetch("/cakes");
+            const cakes = await response.json();
+            console.log(cakes);
 
-        <script>
-            async function getCakeData() {
-                const response = await fetch("/cakes");
-                const cakes = await response.json();
-                console.log(cakes);
-
-                // Update the cakes table with the cakes data from the REST API
-                var tbody = document.getElementById("cakes");
-
-                for (var i=0; i < cakes.length; i++) {
-                    var row = tbody.insertRow(i);
-
-                    // Title
-                    var cell = row.insertCell();
-                    cell.appendChild(document.createTextNode(cakes[i].title));
-
-                    // Description
-                    cell = row.insertCell();
-                    cell.appendChild(document.createTextNode(cakes[i].desc));
-
-                    // Image
-                    cell = row.insertCell();
-                    var img = document.createElement("img");
-                    img.src = cakes[i].image;
-                    cell.appendChild(img);
-                }
-             }
-             getCakeData();
-        </script>
+            document.getElementById("cakes-list").innerHTML = `
+            <p class="app-results"> The Cake List (${cakes.length} cakes)</p>
+            ${cakes.map(cakeTemplate).join("")}`
+        }
+        getCakeData();
+    </script>
 
     </body>
-
-
-
-</body>
 </html>
