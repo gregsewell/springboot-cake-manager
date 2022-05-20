@@ -14,6 +14,8 @@ public class CakeMgrApplication {
 		SpringApplication.run(CakeMgrApplication.class, args);
 	}
 
+	// For mapping from the entity (jpa-data) classes to the domain classes
+	// No real "mapping" required in this case, but included it anyway - layered design principle.
 	@Bean
 	public ModelMapper modelMapper() {
 		return new ModelMapper();

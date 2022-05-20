@@ -34,6 +34,7 @@ public class CakeViewController {
      * @param model mvc model
      * @return cakes page
      */
+    /*
     @GetMapping(path={"/", "", "index.html"})
     public String showCakes(Model model) {
         LOGGER.debug("Received GET request for cakes as web page");
@@ -41,4 +42,5 @@ public class CakeViewController {
         model.addAttribute("cakes", cakes);
         return "index";
     }
+    */
 }

@@ -28,7 +28,7 @@ public class CakeDataLoader {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CakeDataLoader.class);
 
-    private static final String CAKE_DATA_FILE = "status/cakes.json";
+    private static final String CAKE_DATA_FILE = "repository/cakes.json";
 
     @Value("${cake.data.url}")
     private String cakeDataURL;
@@ -44,7 +44,8 @@ public class CakeDataLoader {
 
     /**
      * When Spring calls this, the CakeRepository bean will have been instantiated, so we can load the latest initial
-     * data from DATA, or load it from the copy in resources if there is a problem.
+     * data from cakeDataURL, or load it from the copy in resources, either if that is configured or there is a problem
+     * with the data download.
      */
     @PostConstruct
     public void init() throws IOException {
@@ -80,7 +81,7 @@ public class CakeDataLoader {
 
         LOGGER.info("Failed to load cake data from {}", cakeDataURL);
         LOGGER.info("Loading initial cake data from resource file {}", CAKE_DATA_FILE);
-        InputStream inputStream = new ClassPathResource("static/cakes.json").getInputStream();
+        InputStream inputStream = new ClassPathResource("repository/cakes.json").getInputStream();
         String cakeStr = IOUtils.toString(inputStream, StandardCharsets.UTF_8);
         LOGGER.info("Loaded cake data from resource file {} ", CAKE_DATA_FILE);
         return cakeStr;
