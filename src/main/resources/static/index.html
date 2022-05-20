@@ -4,12 +4,36 @@
     <meta charset="UTF-8">
     <title>Cake Manager</title>
     <link rel="stylesheet" href="cake-style.css"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Tangerine">
+
 </head>
 <body>
     <h1 class="app-title">Cake Manager</h1>
     <p class="app-desc">The number one place on the web for cake!</p>
 
     <div class="app-results" id="cakes-list">
+    </div>
+
+    <div class="cake-button">
+        <img src="green-add-button.png" onclick="openForm()"/>
+    </div>
+
+    <div class="form-popup" id="new-cake">
+        <form onsubmit="addNewCake()" class="form-container" id="new-cake-form">
+            <h1>Add a New Cake!</h1>
+
+            <label for="title"><b>Name</b></label>
+            <input type="text" placeholder="Enter Cake Name" name="title" maxlength="100" required>
+
+            <label for="desc"><b>Description</b></label>
+            <input type="text" placeholder="Enter Description" name="desc" maxlength="500" required>
+
+            <label for="image"><b>Photo</b></label>
+            <input type="text" placeholder="Enter Photo URL" name="image" maxlength="300" required>
+
+            <button type="submit" class="btn" id="add-new-cake">Add New Cake</button>
+            <button type="button" class="btn cancel" onclick="closeForm()">Cancel</button>
+        </form>
     </div>
 
     <script>
@@ -31,9 +55,47 @@
             console.log(cakes);
 
             document.getElementById("cakes-list").innerHTML = `
-            <p class="app-results"> The Cake List (${cakes.length} cakes)</p>
+            <p class="app-results"> The Cake Menu (${cakes.length} cakes)</p>
             ${cakes.map(cakeTemplate).join("")}`
         }
+
+        // Get the field values from the form
+        async function addNewCake() {
+            const form = document.getElementById('new-cake-form');
+            const title = form.elements['title'].value;
+            const desc = form.elements['desc'].value;
+            const image = form.elements['image'].value;
+
+            console.log(title);
+            console.log(desc);
+            console.log(image);
+
+            await fetch("/cakes", {
+              method: 'POST',
+              headers: {
+                'content-type': 'application/json',
+                'accept': 'application/json'
+              },
+              body: JSON.stringify({
+                title: title,
+                desc: desc,
+                image: image
+              })
+            });
+
+            console.log("Add New Cake form submitted!");
+        }
+
+        // Show the New Cake form
+        function openForm() {
+             document.getElementById("new-cake").style.display = "block";
+        }
+
+        // Hide the New Cake form
+        function closeForm() {
+            document.getElementById("new-cake").style.display = "none";
+        }
+
         getCakeData();
     </script>
 

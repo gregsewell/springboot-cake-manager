@@ -34,7 +34,7 @@ public class CakeController {
      */
     @GetMapping(path="/cakes", produces="application/json")
     public List<Cake> getCakes() {
-        LOGGER.debug("Received GET request for cakes as JSON");
+        LOGGER.info("Received GET request for cakes as JSON");
         Iterable<CakeEntity> cakeEntities = repository.findAll();
 
         // Convert the entities to POJOs for presentation
