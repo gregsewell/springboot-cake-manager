@@ -22,13 +22,13 @@
         <form onsubmit="addNewCake(event)" class="form-container" id="new-cake-form">
             <h1>Add a New Cake!</h1>
 
-            <label for="title"><b>Name</b></label>
+            <label><b>Name</b></label>
             <input type="text" placeholder="Enter Cake Name" name="title" maxlength="100" required>
 
-            <label for="desc"><b>Description</b></label>
+            <label><b>Description</b></label>
             <input type="text" placeholder="Enter Description" name="desc" maxlength="500" required>
 
-            <label for="image"><b>Photo</b></label>
+            <label><b>Photo</b></label>
             <input type="text" placeholder="Enter Photo URL" name="image" maxlength="300" required>
 
             <button type="submit" class="btn" id="add-new-cake"">Add New Cake</button>
@@ -93,14 +93,16 @@
                 console.log("Error creating cake");
                 console.log("Error = " + err);
             }
+            form.reset();
             closeForm();
+            getCakeData();
             return true;
         };
 
         // Show the New Cake form
         function openForm() {
              document.getElementById("new-cake").style.display = "block";
-        }
+        };
 
         // Hide the New Cake form
         function closeForm() {
