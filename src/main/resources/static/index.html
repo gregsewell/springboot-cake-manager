@@ -8,8 +8,8 @@
 
 </head>
 <body>
-    <h1 class="app-title">Cake Manager</h1>
-    <p class="app-desc">The number one place on the web for cake!</p>
+    <h1 class="app-title">The Cake Hole</h1>
+    <p class="app-desc">Your number one place on the web for cake!</p>
 
     <div class="app-results" id="cakes-list">
     </div>
@@ -19,7 +19,7 @@
     </div>
 
     <div class="form-popup" id="new-cake">
-        <form onsubmit="addNewCake()" class="form-container" id="new-cake-form">
+        <form onsubmit="addNewCake(event)" class="form-container" id="new-cake-form">
             <h1>Add a New Cake!</h1>
 
             <label for="title"><b>Name</b></label>
@@ -31,7 +31,7 @@
             <label for="image"><b>Photo</b></label>
             <input type="text" placeholder="Enter Photo URL" name="image" maxlength="300" required>
 
-            <button type="submit" class="btn" id="add-new-cake">Add New Cake</button>
+            <button type="submit" class="btn" id="add-new-cake"">Add New Cake</button>
             <button type="button" class="btn cancel" onclick="closeForm()">Cancel</button>
         </form>
     </div>
@@ -46,7 +46,7 @@
                 <p class="cake-desc">${cake.desc}</p>
             </div>
           `;
-        }
+        };
 
         // Download the list of cakes data and then call the cakeTemplate to render each cake
         async function getCakeData() {
@@ -60,31 +60,42 @@
         }
 
         // Get the field values from the form
-        async function addNewCake() {
+        async function addNewCake(event) {
+            event.preventDefault();
             const form = document.getElementById('new-cake-form');
             const title = form.elements['title'].value;
             const desc = form.elements['desc'].value;
             const image = form.elements['image'].value;
 
-            console.log(title);
-            console.log(desc);
-            console.log(image);
-
-            await fetch("/cakes", {
-              method: 'POST',
-              headers: {
-                'content-type': 'application/json',
-                'accept': 'application/json'
-              },
-              body: JSON.stringify({
-                title: title,
-                desc: desc,
-                image: image
-              })
-            });
-
-            console.log("Add New Cake form submitted!");
-        }
+            let response = undefined;
+            try {
+                response = await fetch("/cakes", {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json',
+                    'accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    title: title,
+                    desc: desc,
+                    image: image
+                    }),
+                });
+                let responseJson = await(response.json);
+                if (response.status == 200) {
+                    console.log("Cake created");
+                }
+                else {
+                    console.log("Error creating cake. Status code = "  + response.status);
+                }
+            }
+            catch (err) {
+                console.log("Error creating cake");
+                console.log("Error = " + err);
+            }
+            closeForm();
+            return true;
+        };
 
         // Show the New Cake form
         function openForm() {
@@ -94,7 +105,7 @@
         // Hide the New Cake form
         function closeForm() {
             document.getElementById("new-cake").style.display = "none";
-        }
+        };
 
         getCakeData();
     </script>
