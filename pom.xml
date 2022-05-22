@@ -20,6 +20,7 @@
 		<modelmapper.version>3.1.0</modelmapper.version>
 		<docker.image.name>cake-manager</docker.image.name>
 		<docker-maven-plugin.version>1.2.1</docker-maven-plugin.version>
+		<sonar-maven-plugin>3.9.1.2184</sonar-maven-plugin>
 	</properties>
 	<dependencies>
 		<!-- Dependencides added by Spring Initializr -->
@@ -144,6 +145,39 @@
 				</plugins>
 			</build>
 		</profile>
+
+		<profile>
+			<id>sonar</id>
+			<properties>
+				<sonar.sources>.</sonar.sources>
+				<sonar.inclusions>src/main/java/**,src/main/resources/**</sonar.inclusions>
+				<!--<sonar.exclusions>${code.coverage.exclusions}</sonar.exclusions>-->
+				<sonar.projectKey>gregsewell_CakeManager</sonar.projectKey>
+				<sonar.organization>gregsewell</sonar.organization>
+				<sonar.host.url>https://sonarcloud.io</sonar.host.url>
+			</properties>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.sonarsource.scanner.maven</groupId>
+						<artifactId>sonar-maven-plugin</artifactId>
+						<version>${sonar-maven-plugin}</version>
+						<executions>
+							<execution>
+								<phase>verify</phase>
+								<goals>
+									<goal>sonar</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
 	</profiles>
 
 </project>
