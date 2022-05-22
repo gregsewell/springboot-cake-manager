@@ -19,6 +19,7 @@
 		<commons.version>2.11.0</commons.version>
 		<modelmapper.version>3.1.0</modelmapper.version>
 		<docker.image.name>cake-manager</docker.image.name>
+		<docker-maven-plugin.version>1.2.1</docker-maven-plugin.version>
 	</properties>
 	<dependencies>
 		<!-- Dependencides added by Spring Initializr -->
@@ -101,6 +102,7 @@
 					<plugin>
 						<groupId>com.spotify</groupId>
 						<artifactId>docker-maven-plugin</artifactId>
+						<version>${docker-maven-plugin.version}</version>
 						<configuration>
 							<imageName>${docker.image.name}</imageName>
 							<!-- <registryUrl>${docker.image.prefix}</registryUrl> -->
@@ -122,7 +124,7 @@
 						<executions>
 							<execution>
 								<id>build-image</id>
-								<phase>install</phase>
+								<phase>package</phase>
 								<goals>
 									<goal>build</goal>
 								</goals>

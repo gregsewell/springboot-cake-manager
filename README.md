@@ -1,8 +1,15 @@
 # SpringBoot CakeManager application (Waracle test project)
 
+Build
+
+
+
 Building in docker
 
-docker build -t cake-manager .
+Uses a maven plugin
+
+./mvnw clean install 
+
 
 Running in docker
 
