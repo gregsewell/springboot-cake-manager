@@ -18,10 +18,10 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 11.0.15
-      - name: Maven Package
-        run: mvn -B clean package -DskipTests
+      - name: Maven Compile
+        run: mvn -B clean compile -DskipTests
       - name: Maven Verify
-        run: mvn -B clean verify
+        run: mvn -B clean test
 
   artifact:
     name: Publish - GitHub Packages
@@ -35,6 +35,8 @@ jobs:
         with:
           java-version: 11.0.15
       - name: Publish artifact on GitHub Packages
-        run: mvn -B clean deploy -DskipTests
+        run: mvn -B clean package -DskipTests
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+

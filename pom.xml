@@ -18,6 +18,8 @@
 		<lombok.version>1.18.24</lombok.version>
 		<commons.version>2.11.0</commons.version>
 		<modelmapper.version>3.1.0</modelmapper.version>
+		<!-- Use the github repo for publishing image -->
+		<docker.image.prefix>ghcr.io</docker.image.prefix>
 		<docker.image.name>cake-manager</docker.image.name>
 		<docker-maven-plugin.version>1.2.1</docker-maven-plugin.version>
 		<sonar-maven-plugin>3.9.1.2184</sonar-maven-plugin>
@@ -106,7 +108,7 @@
 						<version>${docker-maven-plugin.version}</version>
 						<configuration>
 							<imageName>${docker.image.name}</imageName>
-							<!-- <registryUrl>${docker.image.prefix}</registryUrl> -->
+							<registryUrl>${docker.image.prefix}</registryUrl>
 							<!-- <pullOnBuild>true</pullOnBuild> -->
 							<dockerDirectory>${project.basedir}</dockerDirectory>
 							<imageTags>
@@ -125,7 +127,7 @@
 						<executions>
 							<execution>
 								<id>build-image</id>
-								<phase>package</phase>
+								<phase>install</phase>
 								<goals>
 									<goal>build</goal>
 								</goals>
