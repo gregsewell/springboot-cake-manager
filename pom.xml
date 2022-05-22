@@ -147,4 +147,12 @@
 		</profile>
 	</profiles>
 
+	<distributionManagement>
+		<repository>
+			<id>github</id>
+			<name>Cake Manager application</name>
+			<url>https://maven.pkg.github.com/gregsewell/springboot-cake-manager</url>
+		</repository>
+	</distributionManagement>
+
 </project>
