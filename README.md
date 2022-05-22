@@ -1,5 +1,17 @@
 # SpringBoot CakeManager application (Waracle test project)
 
+Building in docker
+
+docker build -t cake-manager .
+
+Running in docker
+
+docker run -p 8282:8282 cake-manager
+
+
+
+
+
 --- Specification from Waracle ---
 
 Cake Manager Micro Service (fictitious)
