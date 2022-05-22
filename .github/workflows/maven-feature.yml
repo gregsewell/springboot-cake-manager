@@ -19,6 +19,6 @@ jobs:
         with:
           java-version: 11.0.15
       - name: Maven Package
-        run: mvn -B clean compile -DskipTests
+        run: mvn -B clean package -DskipTests
       - name: Maven Verify
-        run: mvn -B clean test
+        run: mvn -B clean verify
