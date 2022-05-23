@@ -1,107 +1,78 @@
-# SpringBoot CakeManager application (Waracle test project)
+# SpringBoot Cake Manager Micro Service 
 
-Build
+The service is a simple SpringBoot microservice that runs in the default Tomcat server.
+The service allows users to see a list of cakes and to create new cakes.
+The service supports both a REST endpoint and a 'single page app' web page.
 
+## Building the service
 
+The easiest way is to use the maven wrapper in the project root directory to build a docker image.
 
-Building in docker
+    ./mvnw clean install
 
-Uses a maven plugin
+This compiles the code, runs the tests and builds a jar file in target/cakemgr-DEVELOP-SNAPSHOT.jar.
+It also builds a docker image called 'cake-manager'.
 
-./mvnw clean install 
+## Running the service
 
+The service can be run in a docker container:
 
-Running in docker
+    docker run -p 8282:8282 cake-manager
 
-docker run -p 8282:8282 cake-manager
+Alternatively the service can be run directly
 
+    java -jar cakemgr-DEVELOP-SNAPSHOT.jar
 
-
-
-
---- Specification from Waracle ---
-
-Cake Manager Micro Service (fictitious)
-=======================================
-
-A summer intern started on this project but never managed to get it finished.
-The developer assured us that some of the above is complete, but at the moment accessing the /cakes endpoint
-returns a 404, so getting this working should be the first priority.
-
-Requirements:
-* By accessing the root of the server (/) it should be possible to list the cakes currently in the system. This must be presented in an acceptable format for a human to read.
-
-* It must be possible for a human to add a new cake to the server.
-
-* By accessing an alternative endpoint (/cakes) with an appropriate client it must be possible to download a list of
-  the cakes currently in the system as JSON data.
-
-* The /cakes endpoint must also allow new cakes to be created.
-
-Comments:
-* We feel like the software stack used by the original developer is quite outdated, it would be good to migrate the entire application to something more modern.
-* Would be good to change the application to implement proper client-server separation via REST API.
-
-Bonus points:
-* Tests
-* Authentication via OAuth2
-* Continuous Integration via any cloud CI system
-* Containerisation
+By default, at startup the service loads a list of cakes from a resource file.
+This is because the cake list as the original data now has several broken image links and so is no longer a good source of data for a demonstration.
 
 
-Original Project Info
-=====================
+## Accessing the service
 
-To run a server locally execute the following command:
+### REST endpoint
 
-`mvn jetty:run`
+The service implements a REST endpoint at /cakes which can be accessed from PostMan or similar REST client with a GET request:
 
-and access the following URL:
+    http://localhost:8282/cakes
 
-`http://localhost:8282/`
+A new cake can be added by calling the same endpoint with a POST request and providing JSON data in the request body. Example:
 
-Feel free to change how the project is run, but clear instructions must be given in README
-You can use any IDE you like, so long as the project can build and run with Maven or Gradle.
+    {
+        "title": "Lemon Cheesecake",
+        "desc": "A zesty lemon treat!",
+        "image": "https://s3-eu-west-1.amazonaws.com/s3.mediafileserver.co.uk/carnation/WebFiles/RecipeImages/lemoncheesecake_lg.jpg"
+    }
 
-The project loads some pre-defined data in to an in-memory database, which is acceptable for this exercise.  There is
-no need to create persistent storage.
+This returns a JSON object which includes the id of the new cake that was created in the in-memory database. 
+
+### Web page
+
+The web page is implemented as a 'single page application'. 
+The page template iondx.html is downloaded and on load the javascript calls the REST /cakes endpoint to get the list of cakes as JSON which is then styled.  
+
+A web UI can be accessed to show the list of cakes at:
+
+    http://localhost:8282
+
+This shows a list of the cakes.
+
+By clicking the + button at the bottom of the screen a 'New Cake' form is shown. 
+When the user clicks the 'Add New Cake' button the input data is validated and the REST /cakes endpoint is called to add the new cake to the database.
+The new cake is shown to the user at the bottom of the list.
+
+### Github and CI
+
+The project is hosted in Github at 
+
+    https://github.com/gregsewell/springboot-cake-manager
+
+Two Github Actions have been added to support a simple Continuous Integration (CI) workflow.
+The specifications of these actions can be seen in the project source .github/workflows folder:
+
+The file maven-feature.yml compiles the code and runs the unit tests when a commit is made to any 'feature' branch (one not called 'main' or 'release*').
+
+The file maven-main.yml additionally builds the application jar file and stores it in the GitHub packages area for the project.
 
 
-Submission
-==========
 
-Please provide your version of this project as a git repository (e.g. Github, BitBucket, etc).
-
-Alternatively, you can submit the project as a zip or gzip. Use Google Drive or some other file sharing service to
-share it with us.
-
-Please also keep a log of the changes you make as a text file and provide this to us with your submission.
-
-Good luck!
-
---- End Specification from Waracle ---
-
-
-### Reference Documentation
-For further reference, please consider the following sections:
-
-* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)
-* [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/2.6.7/maven-plugin/reference/html/)
-* [Create an OCI image](https://docs.spring.io/spring-boot/docs/2.6.7/maven-plugin/reference/html/#build-image)
-* [Spring Web](https://docs.spring.io/spring-boot/docs/2.6.7/reference/htmlsingle/#boot-features-developing-web-applications)
-* [Thymeleaf](https://docs.spring.io/spring-boot/docs/2.6.7/reference/htmlsingle/#boot-features-spring-mvc-template-engines)
-* [Spring Security](https://docs.spring.io/spring-boot/docs/2.6.7/reference/htmlsingle/#boot-features-security)
-* [Spring Data JPA](https://docs.spring.io/spring-boot/docs/2.6.7/reference/htmlsingle/#boot-features-jpa-and-spring-data)
-
-### Guides
-The following guides illustrate how to use some features concretely:
-
-* [Building a RESTful Web Service](https://spring.io/guides/gs/rest-service/)
-* [Serving Web Content with Spring MVC](https://spring.io/guides/gs/serving-web-content/)
-* [Building REST services with Spring](https://spring.io/guides/tutorials/bookmarks/)
-* [Handling Form Submission](https://spring.io/guides/gs/handling-form-submission/)
-* [Securing a Web Application](https://spring.io/guides/gs/securing-web/)
-* [Spring Boot and OAuth2](https://spring.io/guides/tutorials/spring-boot-oauth2/)
-* [Authenticating a User with LDAP](https://spring.io/guides/gs/authenticating-ldap/)
-* [Accessing Data with JPA](https://spring.io/guides/gs/accessing-data-jpa/)
 
