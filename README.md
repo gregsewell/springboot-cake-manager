@@ -48,13 +48,11 @@ This returns a JSON object which includes the id of the new cake that was create
 ### Web page
 
 The web page is implemented as a 'single page application'. 
-The page template iondx.html is downloaded and on load the javascript calls the REST /cakes endpoint to get the list of cakes as JSON which is then styled.  
+The page template index.html is downloaded and on load the javascript calls the REST /cakes endpoint to get the list of cakes as JSON which is then styled.  
 
 A web UI can be accessed to show the list of cakes at:
 
     http://localhost:8282
-
-This shows a list of the cakes.
 
 By clicking the + button at the bottom of the screen a 'New Cake' form is shown. 
 When the user clicks the 'Add New Cake' button the input data is validated and the REST /cakes endpoint is called to add the new cake to the database.
@@ -62,7 +60,7 @@ The new cake is shown to the user at the bottom of the list.
 
 ### Github and CI
 
-The project is hosted in Github at 
+The project is hosted in Github at:
 
     https://github.com/gregsewell/springboot-cake-manager
 
@@ -71,7 +69,7 @@ The specifications of these actions can be seen in the project source .github/wo
 
 The file maven-feature.yml compiles the code and runs the unit tests when a commit is made to any 'feature' branch (one not called 'main' or 'release*').
 
-The file maven-main.yml additionally builds the application jar file and stores it in the GitHub packages area for the project.
+The file maven-main.yml runs on a merge to the main or a releae branch and additionally builds the application jar file and stores it in the GitHub packages area for the project.
 
 
 
